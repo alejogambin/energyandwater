@@ -1,12 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Grid_cartas from "../components/Grid_cartas";
+import Tarjeta_Servicio from "../components/Tarjeta_Servicio";
 
 function Productos() {
     return (
         <>
             <Header />
-            <h1>Productos</h1>
-            <p>Esta es la página de productos.</p>
+            <Tarjeta_Servicio />
             <Footer />
         </>
     );

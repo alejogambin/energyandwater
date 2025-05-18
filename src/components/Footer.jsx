@@ -7,13 +7,13 @@ const Footer = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100px',
-                backgroundColor: '#333',
+                height: '57px',
+                backgroundColor: '#4c4c4c',
                 color: '#fff',
             }}
         >
-            <Typography variant="h6">
-                &copy; {new Date().getFullYear()} Your Company Name
+            <Typography variant="subtitle1">
+                &copy; {new Date().getFullYear()} Derechos reservados. Antiguedades Sthandier
             </Typography>
         </Box>
     );

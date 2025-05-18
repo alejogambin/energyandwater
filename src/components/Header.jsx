@@ -1,126 +1,82 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  Box,
+  Avatar,
+  Link,
+  Typography,
+  ListItemText
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
 
-const pages = ['Contactanos', 'Mision', 'Vision', 'Quienes somos?'];
+//header component
+const Header = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-
-function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
- 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
   };
 
- 
+  const opciones = [
+    { id: 1, nombre: "Inicio", link: "#" },
+    { id: 2, nombre: "Productos", link: "#" },
+    { id: 3, nombre: "Contacto", link: "#" }
+  ];
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+    <>
+      <AppBar position="static" sx={{ backgroundColor: "#202020" }}>
+        <Toolbar>
+          <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+            {/* logo de aplicacion */}
+            <Avatar
+              alt="Logo"
+              src="src/img/logo.jpeg"
+              sx={{ marginRight: 1 }}
+            />
+            <Typography variant="h6"> Antiguedades Sthandier</Typography>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+          <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
+            {opciones.map((opcion) => (
+              <Link
+                key={opcion.id}
+                href={opcion.link}
+                color="inherit"
+                underline="none"
+                sx={{ margin: 2 }}
               >
-                {page}
-              </Button>
+                {opcion.nombre}
+              </Link>
             ))}
           </Box>
-         
+          {/* Icono de menu para dispositivos moviles */}
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={toggleDrawer(true)}
+            sx={{ display: { xs: "block", md: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
-      </Container>
-    </AppBar>
+      </AppBar>
+
+     <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)}>
+  <List>
+    {opciones.map((opcion) => (
+      <ListItem button component="a" href={opcion.link} key={opcion.id}>
+        <ListItemText primary={opcion.nombre} />
+      </ListItem>
+    ))}
+  </List>
+</Drawer>
+    </>
   );
-}
-export default ResponsiveAppBar;
+};
+
+export default Header;

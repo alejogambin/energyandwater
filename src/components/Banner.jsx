@@ -5,9 +5,9 @@ const Banner = () => {
   return (
     <Box
       sx={{
-        height: '60vh',
+        height: '83vh', // Ajusta la altura según sea necesario
         position: 'relative',
-        backgroundImage: 'url(/src/assets/banner.jpg)', // Reemplaza con la ruta correcta de tu imagen
+        backgroundImage: 'url(src/img/home.png)', // Reemplaza con la ruta correcta de tu imagen
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -25,7 +25,7 @@ const Banner = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Ajusta la opacidad según sea necesario
+          backgroundColor: 'rgba(0, 0, 0, 0.7)', // Ajusta la opacidad según sea necesario
           zIndex: 1,
         }}
       />
@@ -41,7 +41,8 @@ const Banner = () => {
           Bienvenido a nuestra tienda de antigüedades
         </Typography>
         <Typography variant="h6" sx={{ mb: 4 }}>
-          Trabajamos para ti y tu comunidad.
+          Tienda de antigüedades Sthandier, donde la historia cobra vida a través de objetos únicos y fascinantes.
+          Descubre la belleza de lo antiguo y encuentra tesoros que cuentan historias.
         </Typography>
         <Button variant="contained" color="primary" size="large">
           Conoce más
