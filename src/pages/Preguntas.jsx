@@ -1,17 +1,17 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Banner from "../components/Banner";
+import Preguntas_F from "../components/Preguntas_F"
 
-function Home() {
+function Preguntas() {
     return (
         <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             <Header />
             <main style={{ flex: 1 }}>
-                <Banner />
+                <Preguntas_F />
             </main>
             <Footer />
         </div>
     );
 }
 
-export default Home;
+export default Preguntas;

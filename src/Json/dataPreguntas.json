@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "pregunta": "¿Donde nos Ubicamos?",
+        "respuesta": "Avenida Eucaliptus 1809, Zapallar, Valparaiso, Chile"
+    },
+    {
+        "id": 2,
+        "pregunta": "¿Como Compra?",
+        "respuesta": "Enviando un mensaje directo por alguna de nuestras redes sociales."
+    },
+      {
+        "id": 3,
+        "pregunta": "Pago y Reserva",
+        "respuesta": "Se reservar productos por 24 horas y aceptan transferencias inmediatas como método de pago.(Instagram)."
+    },
+    {
+        "id": 4,
+        "pregunta": "¿Modo de envio?",
+        "respuesta": "Los envios se realizan a traves de chilexpress o Starken por pagar."
+    },
+    {
+        "id": 5,
+        "pregunta": "¿Que dia se hacen los despachos?",
+        "respuesta": "Los despachos se realizan los dias Jueves."
+    }
+]

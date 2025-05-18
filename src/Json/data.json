@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "img": "src/img/imagen5.jpg",
+        "titulo": "Porcelana",
+        "descripcion": "Una hermosa figura de porcelana blanca con detalles dorados."
+    },
+    {
+        "id": 2,
+        "img": "src/img/imagen2.jpg",
+        "titulo": "Jane Smith",
+        "descripcion": "Una muñeca de porcelana con un vestido azul claro y un sombrero de paja."
+    },
+    {
+        "id": 3,
+        "img": "src/img/imagen3.jpg",
+        "titulo": "Hermanas Alice Johnson",
+        "descripcion": "Figura de porcelana, con un vestido de flores y un sombrero de paja."
+    },
+    {
+        "id": 4,
+        "img": "src/img/imagen4.jpg",
+        "titulo": "Isabel Brown",
+        "descripcion": "35 cm de altura, con un vestido de flores y un sombrero de paja."
+    }
+]

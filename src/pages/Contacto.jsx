@@ -1,17 +1,19 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Banner from "../components/Banner";
+import Formulario from "../components/Formulario";
+import { useState } from "react";
 
-function Home() {
+function Contacto() {
+     const [mensaje] = useState("");
     return (
         <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             <Header />
             <main style={{ flex: 1 }}>
-                <Banner />
+                <Formulario mensajeInicial={mensaje} />
             </main>
             <Footer />
         </div>
     );
 }
 
-export default Home;
+export default Contacto;

@@ -1,12 +1,14 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Tarjeta_Servicio from "../components/Tarjeta_Servicio";
+import Carrousel from "../components/Carrousel";
 
 function Productos() {
     return (
         <>
             <Header />
-            <h1>Productos</h1>
-            <p>Esta es la página de productos.</p>
+            <Carrousel />
+            <Tarjeta_Servicio />
             <Footer />
         </>
     );
