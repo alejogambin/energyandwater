@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 //importaciones de paginas
 import Productos from './pages/Productos'
 import Home from './pages/Home'
+import Preguntas from './pages/Preguntas'
+import Somos from './pages/Somos'
 
 function App() {
 
@@ -20,14 +22,28 @@ function App() {
           </>
           }
           />
+
            <Route path='/products' element={
           <>
-
             <Productos />
- 
           </>
           }
           />
+
+          <Route path='/nosotros' element={
+          <>
+            <Somos />  
+          </>
+          }
+          />
+
+         <Route path='/preguntas' element={
+          <>
+            <Preguntas />
+          </>
+          }
+          />
+
       </Routes>
     </Router>
  

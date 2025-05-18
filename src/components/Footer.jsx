@@ -6,10 +6,11 @@ const Footer = () => {
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
+                flexDirection: 'column',
                 alignItems: 'center',
                 height: '57px',
-                backgroundColor: '#4c4c4c',
-                color: '#fff',
+                backgroundColor: '#804040',
+                color: '#fff'
             }}
         >
             <Typography variant="subtitle1">

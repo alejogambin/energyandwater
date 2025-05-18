@@ -23,14 +23,16 @@ const Header = () => {
   };
 
   const opciones = [
-    { id: 1, nombre: "Inicio", link: "#" },
-    { id: 2, nombre: "Productos", link: "#" },
-    { id: 3, nombre: "Contacto", link: "#" }
+    { id: 1, nombre: "Home", link: "/" },
+    { id: 2, nombre: "Productos", link: "/products" },
+    { id: 3, nombre: "Contacto", link: "#" },
+    { id: 4, nombre: "Quienes Somos?", link: "/nosotros" },
+    { id: 5, nombre: "Preguntas Frecuentes", link: "/preguntas" }
   ];
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#202020" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#CC6666" }}>
         <Toolbar>
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
             {/* logo de aplicacion */}
