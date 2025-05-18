@@ -44,7 +44,7 @@ const Banner = () => {
           Tienda de antigüedades Sthandier, donde la historia cobra vida a través de objetos únicos y fascinantes.
           Descubre la belleza de lo antiguo y encuentra tesoros que cuentan historias.
         </Typography>
-        <Button variant="contained" color="primary" size="large">
+        <Button variant="contained" color="primary" size="large" sx={{ mt: 8 }} href="/nosotros">  
           Conoce más
         </Button>
       </Box>

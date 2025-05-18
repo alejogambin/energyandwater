@@ -26,7 +26,7 @@ const Header = () => {
     { id: 1, nombre: "Home", link: "/" },
     { id: 2, nombre: "Productos", link: "/products" },
     { id: 3, nombre: "Contacto", link: "#" },
-    { id: 4, nombre: "Quienes Somos?", link: "/nosotros" },
+    { id: 4, nombre: "Quienes Somos", link: "/nosotros" },
     { id: 5, nombre: "Preguntas Frecuentes", link: "/preguntas" }
   ];
 

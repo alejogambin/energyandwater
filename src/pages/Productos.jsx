@@ -1,12 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Grid_cartas from "../components/Grid_cartas";
 import Tarjeta_Servicio from "../components/Tarjeta_Servicio";
+import Carrousel from "../components/Carrousel";
 
 function Productos() {
     return (
         <>
             <Header />
+            <Carrousel />
             <Tarjeta_Servicio />
             <Footer />
         </>

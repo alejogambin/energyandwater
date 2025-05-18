@@ -20,12 +20,12 @@ function TarjetaServicio({ img, titulo, descripcion }) {
           sx={{
             objectFit: "cover",
             backgroundColor: "#fff",
-            margin: 0, 
+            margin: 0,
             display: "block",
-            width: "100%", 
+            width: "100%",
             height: "140px",
             maxHeight: "140px",
-            maxWidth: "100%" 
+            maxWidth: "100%",
           }}
         />
         <CardContent>
@@ -44,7 +44,7 @@ function TarjetaServicio({ img, titulo, descripcion }) {
           alignItems: "center",
         }}
       >
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" href="/contacto">
           Contactanos
         </Button>
       </CardActions>
@@ -55,17 +55,25 @@ function TarjetaServicio({ img, titulo, descripcion }) {
 // Componente que renderiza todas las tarjetas automáticamente
 export default function ListaTarjetas() {
   return (
-    <div
-      style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-    >
-      {data.map((item) => (
-        <TarjetaServicio
-          key={item.id}
-          img={item.img}
-          titulo={item.titulo}
-          descripcion={item.descripcion}
-        />
-      ))}
-    </div>
+    <>
+      <Typography
+        variant="h4"
+        sx={{ textAlign: "center", marginTop: "3rem", marginBottom: "3rem" }}
+      >
+        Nuestros Productos
+      </Typography>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
+        {data.map((item) => (
+          <TarjetaServicio
+            key={item.id}
+            img={item.img}
+            titulo={item.titulo}
+            descripcion={item.descripcion}
+          />
+        ))}
+      </div>
+    </>
   );
 }
