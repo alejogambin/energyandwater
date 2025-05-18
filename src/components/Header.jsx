@@ -25,7 +25,7 @@ const Header = () => {
   const opciones = [
     { id: 1, nombre: "Home", link: "/" },
     { id: 2, nombre: "Productos", link: "/products" },
-    { id: 3, nombre: "Contacto", link: "#" },
+    { id: 3, nombre: "Contacto", link: "/contacto" },
     { id: 4, nombre: "Quienes Somos", link: "/nosotros" },
     { id: 5, nombre: "Preguntas Frecuentes", link: "/preguntas" }
   ];
@@ -68,7 +68,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
-     <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)}>
+     <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)} >
   <List>
     {opciones.map((opcion) => (
       <ListItem button component="a" href={opcion.link} key={opcion.id}>

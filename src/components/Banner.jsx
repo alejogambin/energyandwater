@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <Box
       sx={{
-        height: '83vh', // Ajusta la altura según sea necesario
+        height: '83.6vh', // Ajusta la altura según sea necesario
         position: 'relative',
         backgroundImage: 'url(src/img/home.png)', // Reemplaza con la ruta correcta de tu imagen
         backgroundSize: 'cover',

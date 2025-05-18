@@ -10,6 +10,7 @@ import Productos from './pages/Productos'
 import Home from './pages/Home'
 import Preguntas from './pages/Preguntas'
 import Somos from './pages/Somos'
+import Contacto from './pages/Contacto'
 
 function App() {
 
@@ -26,6 +27,13 @@ function App() {
            <Route path='/products' element={
           <>
             <Productos />
+          </>
+          }
+          />
+
+           <Route path='/contacto' element={
+          <>
+            <Contacto />
           </>
           }
           />

@@ -6,9 +6,20 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
-import data from "../Json/data.json"; // Ajusta la ruta si es necesario
+import data from "../Json/data.json"; 
+import { useNavigate } from "react-router-dom";
 
 function TarjetaServicio({ img, titulo, descripcion }) {
+  const navigate = useNavigate();
+
+  const handleContactar = () => {
+    navigate("/contacto", {
+      state: {
+        mensaje: `Estoy interesado en: ${titulo} - ${descripcion}. Necesito más información.`,
+      },
+    });
+  };
+
   return (
     <Card sx={{ maxWidth: 345, m: 2, borderRadius: 2 }}>
       <CardActionArea>
@@ -44,7 +55,7 @@ function TarjetaServicio({ img, titulo, descripcion }) {
           alignItems: "center",
         }}
       >
-        <Button size="small" color="primary" href="/contacto">
+        <Button size="small" color="primary" onClick={handleContactar}>
           Contactanos
         </Button>
       </CardActions>
