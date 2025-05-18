@@ -1,22 +1,29 @@
+/* Centra el contenido del elemento con id 'root' y elimina márgenes por defecto */
 #root {
   margin: 0 auto;
   margin: 0 auto;
   text-align: center;
 }
 
+/* Estilos para la clase 'logo', define tamaño, espaciado y transición de filtro */
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  height: 6em; /* Altura del logo */
+  padding: 1.5em; /* Espaciado alrededor del logo */
+  will-change: filter; /* Optimiza el rendimiento para cambios de filtro */
+  transition: filter 300ms; /* Transición suave al cambiar el filtro */
 }
+
+/* Aplica un efecto de sombra al logo al pasar el mouse */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
+/* Sombra diferente para el logo con clase adicional 'react' al hacer hover */
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Animación para rotar el logo 360 grados */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -26,16 +33,19 @@
   }
 }
 
+/* Si el usuario no prefiere reducir movimiento, anima el logo */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Estilos para la clase 'card', agrega espaciado interno */
 .card {
   padding: 2em;
 }
 
+/* Estilos para la clase 'read-the-docs', cambia el color del texto */
 .read-the-docs {
   color: #888;
 }

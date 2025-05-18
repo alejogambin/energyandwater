@@ -14,14 +14,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 
-//header component
+// Componente Header que representa la barra de navegación superior
 const Header = () => {
+  // Estado para controlar si el Drawer (menú lateral) está abierto o cerrado
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  // Función para abrir/cerrar el Drawer
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
   };
 
+  // Opciones de navegación del menú
   const opciones = [
     { id: 1, nombre: "Home", link: "/" },
     { id: 2, nombre: "Productos", link: "/products" },
@@ -32,10 +35,12 @@ const Header = () => {
 
   return (
     <>
+      {/* Barra de navegación superior */}
       <AppBar position="static" sx={{ backgroundColor: "#CC6666" }}>
         <Toolbar>
+          {/* Logo y nombre de la aplicación */}
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-            {/* logo de aplicacion */}
+            {/* Logo de la aplicación */}
             <Avatar
               alt="Logo"
               src="src/img/logo.jpeg"
@@ -43,6 +48,7 @@ const Header = () => {
             />
             <Typography variant="h6"> Antiguedades Sthandier</Typography>
           </Box>
+          {/* Menú de navegación para pantallas grandes */}
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
             {opciones.map((opcion) => (
               <Link
@@ -56,7 +62,7 @@ const Header = () => {
               </Link>
             ))}
           </Box>
-          {/* Icono de menu para dispositivos moviles */}
+          {/* Icono de menú para dispositivos móviles */}
           <IconButton
             edge="end"
             color="inherit"
@@ -68,17 +74,19 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
-     <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)} >
-  <List>
-    {opciones.map((opcion) => (
-      <ListItem button component="a" href={opcion.link} key={opcion.id}>
-        <ListItemText primary={opcion.nombre} />
-      </ListItem>
-    ))}
-  </List>
-</Drawer>
+      {/* Drawer (menú desplegable) para dispositivos móviles */}
+      <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)} >
+        <List>
+          {opciones.map((opcion) => (
+            <ListItem button component="a" href={opcion.link} key={opcion.id}>
+              <ListItemText primary={opcion.nombre} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </>
   );
 };
 
+// Exporta el componente Header para su uso en otras partes de la aplicación
 export default Header;

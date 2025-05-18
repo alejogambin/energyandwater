@@ -8,6 +8,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { useTheme } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 
+// Arreglo de imágenes que se mostrarán en el carrusel
 const images = [
   { imgPath: "src/img/nuevo1.jpg" },
   { imgPath: "src/img/nuevo2.jpg" },
@@ -16,26 +17,31 @@ const images = [
   { imgPath: "src/img/nuevo5.jpg" },
 ];
 
+// Componente funcional que representa el carrusel de imágenes
 export default function Carrousel() {
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
+  const theme = useTheme(); // Obtiene el tema actual de Material UI
+  const [activeStep, setActiveStep] = React.useState(0); // Estado para la imagen activa
+  const maxSteps = images.length; // Número total de imágenes
 
+  // Función para avanzar a la siguiente imagen
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  // Función para retroceder a la imagen anterior
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   return (
     <>
+      {/* Título del carrusel */}
       <Box>
         <Typography variant="h3" sx={{ textAlign: "center", mt: 4 }}>
           Recien Agregados
         </Typography>
       </Box>
+      {/* Contenedor principal del carrusel */}
       <Box
         sx={{
           width: "90%",
@@ -49,6 +55,7 @@ export default function Carrousel() {
           justifyContent: "center",
         }}
       >
+        {/* Espacio para un posible título o descripción adicional */}
         <Paper
           square
           elevation={0}
@@ -62,6 +69,7 @@ export default function Carrousel() {
         >
           {/* Puedes agregar aquí un título si lo deseas */}
         </Paper>
+        {/* Imagen principal del carrusel */}
         <Box
           sx={{
             flex: 1,
@@ -86,6 +94,7 @@ export default function Carrousel() {
             }}
           />
         </Box>
+        {/* Controles de navegación del carrusel */}
         <MobileStepper
           steps={maxSteps}
           position="static"
