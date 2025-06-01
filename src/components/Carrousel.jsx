@@ -31,11 +31,6 @@ export default function Carrousel() {
 
   return (
     <>
-      <Box>
-        <Typography variant="h3" sx={{ textAlign: "center", mt: 4 }}>
-          Productos Nuevos
-        </Typography>
-      </Box>
       <Box
         sx={{
           width: "90%",
@@ -47,6 +42,9 @@ export default function Carrousel() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          alignItems: "center",
+          paddingTop: { xs: "80px", md: "100px" },
+          boxSizing: "border-box",
         }}
       >
         <Paper
@@ -80,10 +78,20 @@ export default function Carrousel() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 2,
-              background: "rgba(0,0,0,0.3)",
+              background: "rgba(121,85,72,0.85)",
               color: "#fff",
-              "&:hover": { background: "rgba(0,0,0,0.5)" },
+              border: "2px solid #bcaaa4",
+              "&:hover": {
+                background: "rgba(93,64,55,0.95)",
+                color: "#fffde7",
+                border: "2px solid #6d4c41",
+                boxShadow: "0 4px 16px 0 rgba(121,85,72,0.25)",
+                scale: "1.1",
+              },
+              boxShadow: "0 2px 8px rgba(121,85,72,0.15)",
+              transition: "all 0.2s",
             }}
+            aria-label="Anterior"
           >
             <KeyboardArrowLeft fontSize="large" />
           </IconButton>
@@ -106,10 +114,20 @@ export default function Carrousel() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 2,
-              background: "rgba(0,0,0,0.3)",
+              background: "rgba(121,85,72,0.85)",
               color: "#fff",
-              "&:hover": { background: "rgba(0,0,0,0.5)" },
+              border: "2px solid #bcaaa4",
+              "&:hover": {
+                background: "rgba(93,64,55,0.95)",
+                color: "#fffde7",
+                border: "2px solid #6d4c41",
+                boxShadow: "0 4px 16px 0 rgba(121,85,72,0.25)",
+                scale: "1.1",
+              },
+              boxShadow: "0 2px 8px rgba(121,85,72,0.15)",
+              transition: "all 0.2s",
             }}
+            aria-label="Siguiente"
           >
             <KeyboardArrowRight fontSize="large" />
           </IconButton>
@@ -128,17 +146,30 @@ export default function Carrousel() {
               <Box
                 key={idx}
                 sx={{
-                  width: 12,
-                  height: 12,
+                  width: 16,
+                  height: 16,
                   borderRadius: "50%",
                   backgroundColor:
                     idx === activeStep
-                      ? "#fff"
-                      : "rgba(255,255,255,0.5)",
+                      ? "#795548" // café oscuro activo
+                      : "#d7ccc8", // café claro inactivo
                   border:
-                    idx === activeStep ? "2px solid #333" : "2px solid #fff",
-                  transition: "background 0.3s, border 0.3s",
+                    idx === activeStep
+                      ? "2px solid #6d4c41"
+                      : "2px solid #bcaaa4",
+                  boxShadow:
+                    idx === activeStep
+                      ? "0 2px 8px rgba(121,85,72,0.18)"
+                      : "none",
+                  transition: "all 0.3s cubic-bezier(.4,0,.2,1)",
                   cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  "&:hover": {
+                    backgroundColor: "#bcaaa4",
+                    border: "2px solid #6d4c41",
+                  },
                 }}
                 onClick={() => setActiveStep(idx)}
               />

@@ -31,7 +31,7 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
     setYaAgregado(repetido);
   }, [productosSeleccionados, titulo, nombreSeleccionado, precios]);
 
-  // Función que navega a la página de contacto y pasa un mensaje personalizado
+  // Función que navega a la sección de contacto en Home y pasa los productos seleccionados
   const handleContactar = () => {
     const productoActual = {
       titulo,
@@ -40,10 +40,14 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
       nombreSeleccionado,
       precioSeleccionado,
     };
-    navigate("/contacto", {
+    // Navega a Home y baja a la sección de contacto con los productos seleccionados
+    navigate("/", {
+      replace: false,
       state: {
+        irAContacto: true,
         productosSeleccionados: [...productosSeleccionados, productoActual],
-        allProductos // <-- pasa todos los productos aquí
+        allProductos,
+        scrollTo: "contacto-inicio",
       },
     });
   };
@@ -61,13 +65,27 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
   };
 
   return (
-    <Card sx={{ maxWidth: 345, m: 2, borderRadius: 2 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        m: 2,
+        borderRadius: 3,
+        boxShadow: "0 4px 24px 0 rgba(121,85,72,0.10)",
+        transition: "transform 0.2s, box-shadow 0.2s",
+        "&:hover": {
+          transform: "translateY(-8px) scale(1.03)",
+          boxShadow: "0 8px 32px 0 rgba(121,85,72,0.18)",
+        },
+        background: "linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%)",
+        position: "relative",
+      }}
+    >
       <CardActionArea disableTouchRipple disableRipple>
         <Box sx={{ position: "relative" }}>
           {/* Muestra la imagen del producto */}
           <CardMedia
             component="img"
-            height="140"
+            height="180"
             image={imgs?.length > 0 ? imgs[imgIndex] : img}
             alt={titulo}
             sx={{
@@ -76,10 +94,14 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
               margin: 0,
               display: "block",
               width: "100%",
-              height: "140px",
-              maxHeight: "140px",
+              height: "180px",
+              maxHeight: "180px",
               maxWidth: "100%",
-              pointerEvents: "none" // Evita interacción sobre la imagen
+              pointerEvents: "none",
+              borderTopLeftRadius: "12px",
+              borderTopRightRadius: "12px",
+              boxShadow: "0 2px 8px rgba(121,85,72,0.08)",
+              transition: "opacity 0.5s",
             }}
           />
           {/* Controles de imagen anterior/siguiente si hay varias imágenes */}
@@ -88,33 +110,65 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
               <Button
                 size="small"
                 sx={{
-                  position: "absolute", top: "50%", left: 0, minWidth: 0,
-                  color: "#fff", background: "rgba(0,0,0,0.3)",
+                  position: "absolute", top: "50%", left: 8, minWidth: 0,
+                  color: "#fff", background: "rgba(121,85,72,0.7)",
                   transform: "translateY(-50%)", zIndex: 2, borderRadius: "50%", px: 1,
+                  "&:hover": { background: "rgba(93,64,55,0.9)" },
+                  boxShadow: "0 2px 8px rgba(121,85,72,0.15)",
                 }}
                 onClick={handlePrevImg}
                 tabIndex={0}
+                aria-label="Imagen anterior"
               >{"<"}</Button>
               <Button
                 size="small"
                 sx={{
-                  position: "absolute", top: "50%", right: 0, minWidth: 0,
-                  color: "#fff", background: "rgba(0,0,0,0.3)",
+                  position: "absolute", top: "50%", right: 8, minWidth: 0,
+                  color: "#fff", background: "rgba(121,85,72,0.7)",
                   transform: "translateY(-50%)", zIndex: 2, borderRadius: "50%", px: 1,
+                  "&:hover": { background: "rgba(93,64,55,0.9)" },
+                  boxShadow: "0 2px 8px rgba(121,85,72,0.15)",
                 }}
                 onClick={handleNextImg}
                 tabIndex={0}
+                aria-label="Imagen siguiente"
               >{">"}</Button>
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 8,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  gap: 1,
+                  zIndex: 3,
+                }}
+              >
+                {imgs.map((_, idx) => (
+                  <Box
+                    key={idx}
+                    sx={{
+                      width: imgIndex === idx ? 14 : 10,
+                      height: imgIndex === idx ? 14 : 10,
+                      borderRadius: "50%",
+                      backgroundColor: imgIndex === idx ? "#795548" : "#fff",
+                      border: imgIndex === idx ? "2px solid #fff" : "1px solid #795548",
+                      transition: "all 0.2s",
+                      boxShadow: imgIndex === idx ? "0 2px 8px rgba(121,85,72,0.15)" : "none",
+                    }}
+                  />
+                ))}
+              </Box>
             </>
           )}
         </Box>
         <CardContent>
           {/* Muestra el título del producto */}
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 700, color: "#6d4c41" }}>
             {titulo}
           </Typography>
           {/* Muestra la descripción del producto */}
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          <Typography variant="body2" sx={{ color: "#5d4037", minHeight: 48 }}>
             {descripcion}
           </Typography>
           {/* Selector de precios si hay varias opciones */}
@@ -127,7 +181,12 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
                 setPrecioSeleccionado(e.target.value);
                 setNombreSeleccionado(precios[idx].Nombre);
               }}
-              sx={{ mt: 2 }}
+              sx={{
+                mt: 2,
+                borderRadius: 2,
+                background: "#efebe9",
+                "& .MuiSelect-select": { fontWeight: 500, color: "#6d4c41" }
+              }}
             >
               {precios.map((p, idx) => (
                 <MenuItem key={idx} value={p.precio}>
@@ -138,13 +197,13 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
           )}
           {/* Muestra el precio si solo hay uno */}
           {!precios && precio && (
-            <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+            <Typography sx={{ mt: 2, fontWeight: "bold", color: "#6d4c41" }}>
               Precio: ${precio}
             </Typography>
           )}
           {/* Etiqueta si el producto ya fue agregado */}
           {yaAgregado && (
-            <Typography sx={{ color: "orange", mt: 2, fontWeight: "bold" }}>
+            <Typography sx={{ color: "#bcaaa4", mt: 2, fontWeight: "bold" }}>
               Producto ya agregado para consultar
               {precios?.length > 0 && nombreSeleccionado ? ` (${nombreSeleccionado})` : ""}
             </Typography>
@@ -156,16 +215,29 @@ function TarjetaServicio({ img, titulo, descripcion, precios, precio, imgs, prod
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          pb: 2,
         }}
       >
         {/* Botón para contactar, llama a handleContactar al hacer clic */}
         <Button
-          size="small"
-          color="primary"
+          size="medium"
+          variant="contained"
           onClick={handleContactar}
           disabled={yaAgregado}
+          sx={{
+            borderRadius: 2,
+            fontWeight: 600,
+            px: 3,
+            boxShadow: "0 2px 8px rgba(121,85,72,0.10)",
+            textTransform: "none",
+            background: "#795548",
+            color: "#fff",
+            "&:hover": {
+              background: "#5d4037"
+            }
+          }}
         >
-          Consultar en contacto
+          Consultar Producto
         </Button>
       </CardActions>
     </Card>
@@ -209,7 +281,15 @@ export default function ListaTarjetas() {
     <>
       <Typography
         variant="h4"
-        sx={{ textAlign: "center", marginTop: "5rem", marginBottom: "5rem" }}
+        sx={{
+          textAlign: "center",
+          marginTop: "5rem",
+          marginBottom: "3rem",
+          fontWeight: 800,
+          color: "#6d4c41",
+          letterSpacing: 1,
+          textShadow: "0 2px 8px rgba(121,85,72,0.10)"
+        }}
         data-productos-titulo
         id="productos-typo"
       >
@@ -217,11 +297,20 @@ export default function ListaTarjetas() {
       </Typography>
       <div
         id="tarjetas-servicio"
-        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "2rem",
+          minHeight: "40vh",
+          background: "linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%)",
+          borderRadius: "24px",
+          padding: "2rem 0"
+        }}
       >
         {/* Muestra un mensaje de carga mientras se obtienen los datos */}
         {loading ? (
-          <Typography>Cargando...</Typography>
+          <Typography sx={{ color: "#795548", fontWeight: 500 }}>Cargando...</Typography>
         ) : (
           /* Mapea cada elemento del JSON a una tarjeta */
           productos.map((item) => (

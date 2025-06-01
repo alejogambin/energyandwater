@@ -1,7 +1,7 @@
 // Importa el componente Header para mostrar el encabezado de la página
 import Header from "../components/Header";
 // Importa el componente Footer para mostrar el pie de página
-import Footer from "../components/Footer";
+
 // Importa el componente Banner para mostrar el contenido principal de la página de inicio
 import Banner from "../components/Banner";
 // Importa el componente QuienesSmos para mostrar información sobre la empresa
@@ -9,13 +9,28 @@ import QuienesSomos from "../components/Quienes_somos";
 import Productos from "../pages/Productos";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Contacto from "./Contacto";
+import Preguntas from "./Preguntas";
 
 // Componente funcional que representa la página de inicio
 function Home() {
     const location = useLocation();
 
+    // Mantener productos seleccionados y allProductos en el estado de navegación
+    const productosSeleccionados = location.state?.productosSeleccionados || [];
+    const allProductos = location.state?.allProductos || [];
+
     useEffect(() => {
         if (location.state?.irAProductos && location.state?.scrollTo) {
+            const el = document.getElementById(location.state.scrollTo);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else if (location.state?.irAQuienesSomos && location.state?.scrollTo) {
+            const el = document.getElementById(location.state.scrollTo);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else if (location.state?.irAContacto && location.state?.scrollTo) {
+            const el = document.getElementById(location.state.scrollTo);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else if (location.state?.irAPreguntas && location.state?.scrollTo) {
             const el = document.getElementById(location.state.scrollTo);
             if (el) el.scrollIntoView({ behavior: "smooth" });
         } else if (location.pathname === "/") {
@@ -35,14 +50,27 @@ function Home() {
                     <Banner />
                 </div>
                 {/* Muestra información sobre la empresa */}
-                <QuienesSomos />
+                <div id="quienes-somos-inicio">
+                    <QuienesSomos />
+                </div>
                 {/* Sección de productos con ref */}
                 <div id="productos-inicio">
                     <Productos />
                 </div>
+                {/* Sección de contacto con props para productos seleccionados */}
+                <div id="contacto-inicio">
+                    <Contacto
+                        productosSeleccionados={productosSeleccionados}
+                        allProductos={allProductos}
+                    />
+                </div>
+                {/* Sección de preguntas frecuentes con id para scroll */}
+                <div id="preguntas-inicio">
+                    <Preguntas />   
+                </div>
             </main>
             {/* Muestra el pie de página */}
-            <Footer />
+            
         </div>
     );
 }
