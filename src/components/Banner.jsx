@@ -39,14 +39,33 @@ const Banner = () => (
         position: 'relative',
         zIndex: 2,
         padding: 2,
+        maxWidth: 700,
+        mx: "auto",
+
       }}
     >
       {/* Título principal del banner */}
-      <Typography variant="h2" sx={{ fontWeight: 'bold', mb: 2 }}>
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 'bold',
+          mb: 2,
+          color: "#e0d4c8",
+          textShadow: "0 2px 8px rgba(121,85,72,0.10)"
+        }}
+      >
         Bienvenido a nuestra tienda de antigüedades
       </Typography>
       {/* Descripción breve de la tienda */}
-      <Typography variant="h6" sx={{ marginTop: 15 }}>
+      <Typography
+        variant="h6"
+        sx={{
+          marginTop: 6,
+          color: "#e0d4c8",
+          fontWeight: 500,
+          letterSpacing: 0.5,
+        }}
+      >
         Tienda de antigüedades Sthandier, donde la historia cobra vida a través de objetos únicos y fascinantes.
         Descubre la belleza de lo antiguo y encuentra tesoros que cuentan historias.
       </Typography>

@@ -8,15 +8,18 @@ const Footer = () => (
     // Contenedor principal del footer con estilos responsivos
     <Box
         sx={{
-            backgroundColor: '#9f8974', // Color de fondo del footer
-            color: '#fff', // Color del texto
-            px: 4, // Padding horizontal
-            py: 2, // Padding vertical
+            background: "linear-gradient(90deg, #bcaaa4 0%, #8d6e63 100%)",
+            color: '#fff',
+            px: 4,
+            py: 2,
             display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' }, // Columna en móvil, fila en escritorio
+            flexDirection: { xs: 'column', md: 'row' },
             alignItems: 'center',
-            justifyContent: { xs: 'center', md: 'space-between' }, // Centrado en móvil, espacio entre elementos en escritorio
-            gap: { xs: 1, md: 0 }, // Espacio entre elementos en móvil
+            justifyContent: { xs: 'center', md: 'space-between' },
+            gap: { xs: 1, md: 0 },
+            borderTopLeftRadius: "16px",
+            borderTopRightRadius: "16px",
+            boxShadow: "0 -2px 16px 0 rgba(121,85,72,0.10)",
         }}
     >
         {/* Texto de derechos reservados y nombre de la tienda */}
@@ -25,7 +28,10 @@ const Footer = () => (
             sx={{
                 width: "100%",
                 textAlign: "center",
-                mb: { xs: 1, md: 0 }
+                mb: { xs: 1, md: 0 },
+                fontWeight: 600,
+                letterSpacing: 1,
+                textShadow: "0 2px 8px rgba(121,85,72,0.10)"
             }}
         >
             &copy; {new Date().getFullYear()} Derechos reservados. Antigüedades Sthandier
@@ -36,7 +42,8 @@ const Footer = () => (
                 display: 'flex',
                 justifyContent: { xs: 'center', md: 'flex-end' },
                 width: { xs: '100%', md: 'auto' },
-                mt: { xs: 1, md: 0 }
+                mt: { xs: 1, md: 0 },
+                gap: 2,
             }}
         >
             {/* Icono y enlace a Facebook */}
@@ -45,7 +52,18 @@ const Footer = () => (
                 href="https://www.facebook.com/people/Antiguedades-Sthandier/100065257010074/"
                 target="_blank"
                 rel="noopener"
-                sx={{ color: "#fff" }}
+                sx={{
+                    color: "#fff",
+                    background: "#6d4c41",
+                    mx: 0.5,
+                    "&:hover": {
+                        background: "#bcaaa4",
+                        color: "#5d4037",
+                        transform: "scale(1.15)",
+                        boxShadow: "0 2px 8px rgba(121,85,72,0.18)"
+                    },
+                    transition: "all 0.2s"
+                }}
                 aria-label="Facebook"
             >
                 <FacebookIcon />
@@ -56,7 +74,18 @@ const Footer = () => (
                 href="https://www.instagram.com/antiguedades.sthandier/"
                 target="_blank"
                 rel="noopener"
-                sx={{ color: "#fff" }}
+                sx={{
+                    color: "#fff",
+                    background: "#6d4c41",
+                    mx: 0.5,
+                    "&:hover": {
+                        background: "#bcaaa4",
+                        color: "#5d4037",
+                        transform: "scale(1.15)",
+                        boxShadow: "0 2px 8px rgba(121,85,72,0.18)"
+                    },
+                    transition: "all 0.2s"
+                }}
                 aria-label="Instagram"
             >
                 <InstagramIcon />
@@ -67,7 +96,18 @@ const Footer = () => (
                 href="https://wa.me/XXXXXXXXXXX"
                 target="_blank"
                 rel="noopener"
-                sx={{ color: "#fff" }}
+                sx={{
+                    color: "#fff",
+                    background: "#6d4c41",
+                    mx: 0.5,
+                    "&:hover": {
+                        background: "#bcaaa4",
+                        color: "#5d4037",
+                        transform: "scale(1.15)",
+                        boxShadow: "0 2px 8px rgba(121,85,72,0.18)"
+                    },
+                    transition: "all 0.2s"
+                }}
                 aria-label="WhatsApp"
             >
                 <WhatsAppIcon />

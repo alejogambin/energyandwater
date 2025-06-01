@@ -26,12 +26,15 @@ const QuienesSomos = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" }, // columna en móvil, fila en desktop
+        flexDirection: { xs: "column", md: "row" },
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
         p: 2,
         gap: 4,
+        background: "linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%)",
+        borderRadius: "24px",
+        boxShadow: "0 8px 32px 0 rgba(121,85,72,0.10)",
       }}
     >
       {/* Muestra la imagen del equipo o tienda */}
@@ -42,14 +45,24 @@ const QuienesSomos = () => {
         sx={{
           width: { xs: "100%", md: 600 },
           height: { xs: 300, md: 400 },
-          borderRadius: "12px",
+          borderRadius: "24px",
           objectFit: "cover",
           mb: { xs: 2, md: 0 },
-          clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
+          boxShadow: "0 4px 24px 0 rgba(121,85,72,0.15)",
+          border: "4px solid #bcaaa4",
         }}
       />
       {/* Contenedor del texto descriptivo */}
-      <Box sx={{ maxWidth: 600 }}>
+      <Box
+        sx={{
+          maxWidth: 600,
+          background: "rgba(255,250,245,0.95)",
+          borderRadius: "16px",
+          boxShadow: "0 2px 8px 0 rgba(121,85,72,0.08)",
+          border: "2px solid #d7ccc8",
+          p: { xs: 2, md: 4 },
+        }}
+      >
         {/* Título de la sección */}
         <Typography
           variant="h4"
@@ -58,6 +71,9 @@ const QuienesSomos = () => {
             mb: 3,
             fontWeight: "bold",
             mt: { xs: "2rem", md: 0 },
+            color: "#6d4c41",
+            letterSpacing: 1,
+            textShadow: "0 2px 8px rgba(121,85,72,0.10)"
           }}
         >
           ¿Quiénes Somos?
@@ -67,6 +83,10 @@ const QuienesSomos = () => {
           variant="body1"
           sx={{
             textAlign: { xs: "center", md: "left" },
+            color: "#5d4037",
+            fontWeight: 500,
+            fontSize: "1.15rem",
+            lineHeight: 1.7,
           }}
         >
           {descripcion || "Cargando descripción..."}

@@ -1,5 +1,4 @@
-// Importa el componente Header para mostrar el encabezado de la página
-import Header from "../components/Header";
+
 // Importa el componente Footer para mostrar el pie de página
 import Footer from "../components/Footer";
 // Importa el componente Preguntas_F que contiene las preguntas frecuentes
@@ -10,9 +9,7 @@ function Preguntas() {
     return (
         // Contenedor principal con altura mínima de pantalla completa y disposición en columna
         <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            {/* Muestra el encabezado */}
-            <Header />
-            {/* Contenido principal que ocupa el espacio restante */}
+
             <main style={{ flex: 1 }}>
                 {/* Muestra las preguntas frecuentes */}
                 <Preguntas_F />

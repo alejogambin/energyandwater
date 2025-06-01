@@ -17,8 +17,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const opciones = [
   { id: 1, nombre: "Home", link: "/" },
-  { id: 2, nombre: "Productos", link: "/products" },
-  { id: 3, nombre: "Contacto", link: "/contacto" },
+  { id: 2, nombre: "Quiénes Somos", link: "/quienes-somos" },
+  { id: 3, nombre: "Productos", link: "/products" },
+  { id: 4, nombre: "Contacto", link: "/contacto" },
   { id: 5, nombre: "Preguntas Frecuentes", link: "/preguntas" }
 ];
 
@@ -58,6 +59,51 @@ const Header = () => {
       setDrawerOpen(false);
       return;
     }
+    if (link === "/quienes-somos") {
+      if (location.pathname === "/") {
+        const el = document.getElementById("quienes-somos-inicio");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        setDrawerOpen(false);
+        return;
+      } else {
+        navigate("/", { state: { irAQuienesSomos: true, scrollTo: "quienes-somos-inicio" } });
+        setDrawerOpen(false);
+        return;
+      }
+    }
+    if (link === "/contacto") {
+      if (location.pathname === "/") {
+        const el = document.getElementById("contacto-inicio");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        setDrawerOpen(false);
+        return;
+      } else {
+        // Mantén productos seleccionados y allProductos si existen en el estado
+        navigate("/", {
+          state: {
+            irAContacto: true,
+            scrollTo: "contacto-inicio",
+            productosSeleccionados: location.state?.productosSeleccionados || [],
+            allProductos: location.state?.allProductos || [],
+          }
+        });
+        setDrawerOpen(false);
+        return;
+      }
+    }
+    // Enlace especial para sección "Preguntas Frecuentes" en Home
+    if (link === "/preguntas") {
+      if (location.pathname === "/") {
+        const el = document.getElementById("preguntas-inicio");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        setDrawerOpen(false);
+        return;
+      } else {
+        navigate("/", { state: { irAPreguntas: true, scrollTo: "preguntas-inicio" } });
+        setDrawerOpen(false);
+        return;
+      }
+    }
     navigate(link);
     setForceStatic(link !== "/" || link === "/products");
     setDrawerOpen(false);
@@ -70,12 +116,13 @@ const Header = () => {
         position={forceStatic ? "static" : "fixed"}
         sx={{
           backgroundColor: forceStatic
-            ? "#bfafa0"
+            ? "#d7ccc8"
             : scrolled
-            ? "#bfafa0"
+            ? "#d7ccc8"
             : "transparent",
           boxShadow: forceStatic || scrolled ? 2 : 0,
-          transition: "background-color 0.3s, box-shadow 0.3s"
+          transition: "background-color 0.3s, box-shadow 0.3s",
+          borderBottom: "2px solid #bcaaa4",
         }}
       >
         <Toolbar>
@@ -85,9 +132,26 @@ const Header = () => {
             <Avatar
               alt="Logo"
               src="src/img/logo.jpeg"
-              sx={{ marginRight: 1 }}
+              sx={{
+                marginRight: 1,
+                border: "2px solid #bcaaa4",
+                boxShadow: "0 2px 8px rgba(121,85,72,0.10)",
+                width: 48,
+                height: 48,
+                background: "#efebe9"
+              }}
             />
-            <Typography variant="h6"> Antigüedades Sthandier</Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: "#6d4c41",
+                fontWeight: 700,
+                letterSpacing: 1,
+                textShadow: "0 2px 8px rgba(121,85,72,0.08)"
+              }}
+            >
+              Antigüedades Sthandier
+            </Typography>
           </Box>
           {/* Menú de navegación para pantallas grandes */}
           <Box sx={{ display: { xs: "none", md: "flex" }, marginLeft: "auto" }}>
@@ -95,19 +159,29 @@ const Header = () => {
               <Link
                 key={opcion.id}
                 href={opcion.link}
-                color="inherit"
+                color="#6d4c41"
                 underline="none"
                 sx={{
                   margin: 2,
                   position: "relative",
+                  fontWeight: 600,
+                  fontSize: "1.1rem",
+                  px: 2,
+                  py: 1,
+                  borderRadius: 2,
+                  transition: "background 0.2s, color 0.2s",
+                  "&:hover": {
+                    background: "#bcaaa4",
+                    color: "#fff",
+                  },
                   "&:hover::after": {
                     content: '""',
                     position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: -2,
-                    height: "2px",
-                    backgroundColor: "#fff",
+                    left: 8,
+                    right: 8,
+                    bottom: 4,
+                    height: "3px",
+                    backgroundColor: "#795548",
                     borderRadius: "2px",
                   }
                 }}
@@ -122,7 +196,17 @@ const Header = () => {
             edge="end"
             color="inherit"
             onClick={toggleDrawer(true)}
-            sx={{ display: { xs: "block", md: "none" } }}
+            sx={{
+              display: { xs: "block", md: "none" },
+              background: "#bcaaa4",
+              color: "#6d4c41",
+              borderRadius: 2,
+              "&:hover": {
+                background: "#795548",
+                color: "#fff"
+              },
+              transition: "background 0.2s, color 0.2s"
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -131,7 +215,7 @@ const Header = () => {
 
       {/* Drawer (menú desplegable) para dispositivos móviles */}
       <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)} >
-        <List>
+        <List sx={{ background: "#efebe9", minHeight: "100vh" }}>
           {opciones.map((opcion) => (
             <ListItem
               button
@@ -139,6 +223,19 @@ const Header = () => {
               href={opcion.link}
               key={opcion.id}
               onClick={handleNavClick(opcion.link)}
+              sx={{
+                "&:hover": {
+                  background: "#bcaaa4",
+                  color: "#fff"
+                },
+                color: "#6d4c41",
+                fontWeight: 600,
+                fontSize: "1.1rem",
+                px: 3,
+                py: 2,
+                borderRadius: 2,
+                transition: "background 0.2s, color 0.2s"
+              }}
             >
               <ListItemText primary={opcion.nombre} />
             </ListItem>

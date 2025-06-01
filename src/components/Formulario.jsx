@@ -4,12 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 
 // Componente funcional que representa el formulario de contacto
-const Formulario = ({ mensaje }) => {
+const Formulario = ({ mensaje, productosSeleccionados: propsProductosSeleccionados, allProductos: propsAllProductos }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Usa props si existen (desde Home), si no, usa el estado de navegación
   const [productosSeleccionados, setProductosSeleccionados] = useState(
-    location.state?.productosSeleccionados || []
+    propsProductosSeleccionados || location.state?.productosSeleccionados || []
   );
 
   // Estado para los valores del formulario
@@ -27,8 +28,15 @@ const Formulario = ({ mensaje }) => {
   const [todosAgregados, setTodosAgregados] = useState(false);
 
   useEffect(() => {
-    // Obtener todos los productos y variantes posibles desde el estado de navegación (si existe)
-    const allProductos = location.state?.allProductos || [];
+    if (propsProductosSeleccionados) {
+      setProductosSeleccionados(propsProductosSeleccionados);
+    } else if (location.state?.productosSeleccionados) {
+      setProductosSeleccionados(location.state.productosSeleccionados);
+    }
+  }, [propsProductosSeleccionados, location.state?.productosSeleccionados]);
+
+  useEffect(() => {
+    const allProductos = propsAllProductos || location.state?.allProductos || [];
     if (!allProductos.length) {
       setTodosAgregados(false);
       return;
@@ -54,7 +62,7 @@ const Formulario = ({ mensaje }) => {
       }
     });
     setTodosAgregados(allKeys.size > 0 && allKeys.size === selectedKeys.size);
-  }, [productosSeleccionados, location.state]);
+  }, [productosSeleccionados, propsAllProductos, location.state]);
 
   // Maneja los cambios en los campos del formulario
   const handleChange = (e) => {
@@ -103,8 +111,10 @@ const Formulario = ({ mensaje }) => {
     setForm({ nombre: "", email: "", mensaje: "" });
     setErrors({});
     setEnviado(false);
-    setProductosSeleccionados([]); // Limpia también los productos seleccionados
-    navigate(location.pathname, { replace: true, state: {} });
+    setProductosSeleccionados([]);
+    // Refresca la página pero mantiene la posición usando scrollTo
+    window.location.hash = "#contacto-inicio";
+    window.location.reload();
   };
 
   // Elimina un producto seleccionado
@@ -129,13 +139,38 @@ const Formulario = ({ mensaje }) => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "60vh",
-        mt: 4,
+        mt: { xs: 10, md: 14 }, // Aumenta el margen superior para evitar que el navbar lo tape
+        mb: 4,
+        background: "linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%)",
+        borderRadius: "24px",
+        boxShadow: "0 8px 32px 0 rgba(121,85,72,0.10)",
+        p: { xs: 2, md: 4 },
       }}
     >
       {/* Tarjeta de Material UI para el formulario */}
-      <Paper elevation={3} sx={{ p: 4, width: 350 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          width: 370,
+          borderRadius: 4,
+          background: "rgba(255,250,245,0.97)",
+          boxShadow: "0 4px 24px 0 rgba(121,85,72,0.10)",
+          border: "2px solid #bcaaa4",
+        }}
+      >
         {/* Título del formulario */}
-        <Typography variant="h5" sx={{ mb: 2, textAlign: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            mb: 2,
+            textAlign: "center",
+            color: "#6d4c41",
+            fontWeight: 700,
+            letterSpacing: 1,
+            textShadow: "0 2px 8px rgba(121,85,72,0.08)"
+          }}
+        >
           Contáctanos
         </Typography>
         {/* Formulario de contacto */}
@@ -150,7 +185,14 @@ const Formulario = ({ mensaje }) => {
             required
             error={!!errors.nombre}
             helperText={errors.nombre}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              "& .MuiInputBase-root": {
+                borderRadius: 2,
+                background: "#efebe9"
+              }
+            }}
+            InputLabelProps={{ style: { color: "#6d4c41" } }}
           />
           {/* Campo para el email */}
           <TextField
@@ -163,7 +205,14 @@ const Formulario = ({ mensaje }) => {
             required
             error={!!errors.email}
             helperText={errors.email}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              "& .MuiInputBase-root": {
+                borderRadius: 2,
+                background: "#efebe9"
+              }
+            }}
+            InputLabelProps={{ style: { color: "#6d4c41" } }}
           />
           {/* Campo para el mensaje con iconos de eliminar por producto */}
           <TextField
@@ -177,7 +226,14 @@ const Formulario = ({ mensaje }) => {
             rows={Math.max(4, productosSeleccionados.length)}
             error={!!errors.mensaje}
             helperText={errors.mensaje}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              "& .MuiInputBase-root": {
+                borderRadius: 2,
+                background: "#efebe9"
+              }
+            }}
+            InputLabelProps={{ style: { color: "#6d4c41" } }}
             InputProps={{
               startAdornment: productosSeleccionados.length > 0 ? (
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
@@ -185,14 +241,22 @@ const Formulario = ({ mensaje }) => {
                     <Box key={idx} sx={{ display: "flex", alignItems: "center" }}>
                       <IconButton
                         size="small"
-                        color="error"
+                        sx={{
+                          p: 0.5,
+                          mr: 1,
+                          color: "#fff",
+                          background: "#bcaaa4",
+                          "&:hover": { background: "#795548", color: "#fffde7" },
+                          borderRadius: 1,
+                          boxShadow: "0 2px 8px rgba(121,85,72,0.10)",
+                          transition: "background 0.2s, color 0.2s"
+                        }}
                         onClick={() => handleEliminarProducto(idx)}
                         aria-label="Eliminar producto"
-                        sx={{ p: 0.5, mr: 1 }}
                       >
                         <CloseIcon fontSize="small" />
                       </IconButton>
-                      <Typography variant="body2" sx={{ color: "#333" }}>
+                      <Typography variant="body2" sx={{ color: "#6d4c41" }}>
                         Producto {idx + 1}: {prod.titulo}
                         {prod.nombreSeleccionado
                           ? ` (${prod.nombreSeleccionado})`
@@ -206,8 +270,8 @@ const Formulario = ({ mensaje }) => {
           />
           {/* Mensaje de éxito al enviar */}
           {enviado && (
-            <Typography sx={{ color: "green", mb: 2, textAlign: "center" }}>
-              Enviado Con Éxito!
+            <Typography sx={{ color: "#388e3c", mb: 2, textAlign: "center", fontWeight: 600 }}>
+              ¡Enviado con éxito!
             </Typography>
           )}
           {/* Botón para agregar otro producto si hay productos seleccionados y no se ha enviado */}
@@ -215,7 +279,7 @@ const Formulario = ({ mensaje }) => {
             todosAgregados ? (
               <Typography
                 sx={{
-                  color: "orange",
+                  color: "#bcaaa4",
                   mb: 2,
                   textAlign: "center",
                   fontWeight: "bold",
@@ -226,9 +290,18 @@ const Formulario = ({ mensaje }) => {
             ) : (
               <Button
                 variant="outlined"
-                color="secondary"
                 fullWidth
-                sx={{ mb: 2 }}
+                sx={{
+                  mb: 2,
+                  borderColor: "#bcaaa4",
+                  color: "#795548",
+                  fontWeight: 600,
+                  "&:hover": {
+                    background: "#bcaaa4",
+                    color: "#fff",
+                    borderColor: "#795548"
+                  }
+                }}
                 onClick={handleAgregarOtroProducto}
               >
                 Agregar otro producto
@@ -240,18 +313,38 @@ const Formulario = ({ mensaje }) => {
             <Button
               type="submit"
               variant="contained"
-              color="primary"
               fullWidth
-              sx={{ flex: 1 }}
+              sx={{
+                flex: 1,
+                background: "#795548",
+                color: "#fff",
+                fontWeight: 600,
+                borderRadius: 2,
+                boxShadow: "0 2px 8px rgba(121,85,72,0.10)",
+                textTransform: "none",
+                "&:hover": {
+                  background: "#6d4c41"
+                }
+              }}
             >
               Enviar
             </Button>
             {/* Botón para limpiar datos, siempre visible */}
             <Button
               variant="outlined"
-              color="error"
               fullWidth
-              sx={{ flex: 1 }}
+              sx={{
+                flex: 1,
+                borderColor: "#bcaaa4",
+                color: "#795548",
+                fontWeight: 600,
+                borderRadius: 2,
+                "&:hover": {
+                  background: "#bcaaa4",
+                  color: "#fff",
+                  borderColor: "#795548"
+                }
+              }}
               onClick={handleLimpiar}
             >
               Limpiar datos
