@@ -5,8 +5,8 @@
   font-weight: 400; /* Peso de fuente predeterminado */
 
   color-scheme: light dark; /* Soporte para esquemas de color claro/oscuro */
-  color: rgba(255, 255, 255, 0.87); /* Color de texto principal */
-  background-color: #dca6a6; /* Color de fondo principal */
+  color: black; /* Color de texto principal */
+  background-color: white; /* Color de fondo principal */
 
   font-synthesis: none; /* Evita la síntesis de fuentes */
   text-rendering: optimizeLegibility; /* Mejora la legibilidad del texto */
@@ -20,9 +20,7 @@ a {
   color: #000000; /* Color de texto de enlaces */
   text-decoration: inherit; /* Hereda la decoración del texto */
 }
-a:hover {
-  color: #000000; /* Color de enlace al pasar el mouse */
-}
+
 
 /* Estilos globales para el body */
 body {
