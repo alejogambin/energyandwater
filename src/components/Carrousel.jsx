@@ -1,14 +1,10 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import MobileStepper from "@mui/material/MobileStepper";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { useTheme } from "@mui/material/styles";
-import { Typography } from "@mui/material";
+import { Typography, IconButton } from "@mui/material";
 
-// Arreglo de imágenes que se mostrarán en el carrusel
 const images = [
   { imgPath: "src/img/nuevo1.jpg" },
   { imgPath: "src/img/nuevo2.jpg" },
@@ -17,31 +13,29 @@ const images = [
   { imgPath: "src/img/nuevo5.jpg" },
 ];
 
-// Componente funcional que representa el carrusel de imágenes
 export default function Carrousel() {
-  const theme = useTheme(); // Obtiene el tema actual de Material UI
-  const [activeStep, setActiveStep] = React.useState(0); // Estado para la imagen activa
-  const maxSteps = images.length; // Número total de imágenes
+  const [activeStep, setActiveStep] = useState(0);
+  const maxSteps = images.length;
 
-  // Función para avanzar a la siguiente imagen
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev === maxSteps - 1 ? 0 : prev + 1));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [maxSteps]);
 
-  // Función para retroceder a la imagen anterior
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  const handleNext = () =>
+    setActiveStep((prev) => (prev === maxSteps - 1 ? 0 : prev + 1));
+  const handleBack = () =>
+    setActiveStep((prev) => (prev === 0 ? maxSteps - 1 : prev - 1));
 
   return (
     <>
-      {/* Título del carrusel */}
       <Box>
         <Typography variant="h3" sx={{ textAlign: "center", mt: 4 }}>
-          Recien Agregados
+          Productos Nuevos
         </Typography>
       </Box>
-      {/* Contenedor principal del carrusel */}
       <Box
         sx={{
           width: "90%",
@@ -55,7 +49,6 @@ export default function Carrousel() {
           justifyContent: "center",
         }}
       >
-        {/* Espacio para un posible título o descripción adicional */}
         <Paper
           square
           elevation={0}
@@ -66,10 +59,7 @@ export default function Carrousel() {
             pl: 2,
             bgcolor: "background.default",
           }}
-        >
-          {/* Puedes agregar aquí un título si lo deseas */}
-        </Paper>
-        {/* Imagen principal del carrusel */}
+        />
         <Box
           sx={{
             flex: 1,
@@ -82,6 +72,21 @@ export default function Carrousel() {
             position: "relative",
           }}
         >
+          <IconButton
+            onClick={handleBack}
+            sx={{
+              position: "absolute",
+              left: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 2,
+              background: "rgba(0,0,0,0.3)",
+              color: "#fff",
+              "&:hover": { background: "rgba(0,0,0,0.5)" },
+            }}
+          >
+            <KeyboardArrowLeft fontSize="large" />
+          </IconButton>
           <img
             src={images[activeStep].imgPath}
             alt={`slide-${activeStep}`}
@@ -93,41 +98,53 @@ export default function Carrousel() {
               transition: "opacity 0.5s",
             }}
           />
+          <IconButton
+            onClick={handleNext}
+            sx={{
+              position: "absolute",
+              right: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 2,
+              background: "rgba(0,0,0,0.3)",
+              color: "#fff",
+              "&:hover": { background: "rgba(0,0,0,0.5)" },
+            }}
+          >
+            <KeyboardArrowRight fontSize="large" />
+          </IconButton>
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 16,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: 1,
+              zIndex: 3,
+            }}
+          >
+            {images.map((_, idx) => (
+              <Box
+                key={idx}
+                sx={{
+                  width: 12,
+                  height: 12,
+                  borderRadius: "50%",
+                  backgroundColor:
+                    idx === activeStep
+                      ? "#fff"
+                      : "rgba(255,255,255,0.5)",
+                  border:
+                    idx === activeStep ? "2px solid #333" : "2px solid #fff",
+                  transition: "background 0.3s, border 0.3s",
+                  cursor: "pointer",
+                }}
+                onClick={() => setActiveStep(idx)}
+              />
+            ))}
+          </Box>
         </Box>
-        {/* Controles de navegación del carrusel */}
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Siguiente
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Atrás
-            </Button>
-          }
-        />
       </Box>
     </>
   );

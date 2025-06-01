@@ -4,9 +4,23 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // Importa la imagen que se mostrará en la sección "Quiénes somos"
 import imagenNosotros from "../img/quienes_somos.jpg";
+// Importa los hooks useEffect y useState de React para manejar el estado y los efectos secundarios
+import { useEffect, useState } from "react";
 
 // Componente funcional que muestra la sección "Quiénes Somos"
 const QuienesSomos = () => {
+  const [descripcion, setDescripcion] = useState("");
+
+  // Efecto que se ejecuta al montar el componente para obtener la descripción desde una API
+  useEffect(() => {
+    fetch("https://www.clinicatecnologica.cl/ipss/antiguedadesSthandier/api/v1/about-us/", {
+      headers: { Authorization: "Bearer ipss.get" }
+    })
+      .then(res => res.json())
+      .then(data => setDescripcion(data.data || ""))
+      .catch(() => setDescripcion(""));
+  }, []);
+
   return (
     // Contenedor principal con diseño flexible y responsivo
     <Box
@@ -16,7 +30,7 @@ const QuienesSomos = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        padding: 2,
+        p: 2,
         gap: 4,
       }}
     >
@@ -30,7 +44,8 @@ const QuienesSomos = () => {
           height: { xs: 300, md: 400 },
           borderRadius: "12px",
           objectFit: "cover",
-          marginBottom: { xs: 2, md: 0 },
+          mb: { xs: 2, md: 0 },
+          clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
         }}
       />
       {/* Contenedor del texto descriptivo */}
@@ -39,35 +54,22 @@ const QuienesSomos = () => {
         <Typography
           variant="h4"
           sx={{
-            textAlign: { xs: "center", md: "left" },
+            textAlign: "center",
             mb: 3,
             fontWeight: "bold",
-            marginTop: { xs: "2rem", md: 0 },
+            mt: { xs: "2rem", md: 0 },
           }}
         >
           ¿Quiénes Somos?
         </Typography>
-        {/* Descripción de la tienda y su historia */}
+        {/* Descripción obtenida de la API */}
         <Typography
           variant="body1"
           sx={{
             textAlign: { xs: "center", md: "left" },
           }}
         >
-          Antigüedades Sthandier, ubicada en el encantador balneario de Zapallar,
-          Chile, es un rincón mágico donde el pasado cobra vida a través de
-          exquisitas piezas de colección. Especializada en muñecas antiguas de
-          porcelana y juegos de loza de fina manufactura, esta tienda es un
-          verdadero refugio para los amantes de la historia, la elegancia y el
-          arte en miniatura. Cada muñeca, con su delicada expresión y vestimenta
-          detallada, cuenta su propia historia y refleja la artesanía de épocas
-          pasadas. Los juegos de loza, con sus diseños refinados y su impecable
-          conservación, evocan reuniones familiares, rituales de té y tradiciones
-          que perduran en el tiempo. Antigüedades Sthandier no solo ofrece
-          objetos únicos, sino también una experiencia inmersiva donde los
-          visitantes pueden viajar a un mundo donde cada pieza tiene alma. Un
-          destino imperdible para coleccionistas, nostálgicos y amantes de la
-          belleza clásica. ¡Ven y descubre tesoros con historia!
+          {descripcion || "Cargando descripción..."}
         </Typography>
       </Box>
     </Box>
